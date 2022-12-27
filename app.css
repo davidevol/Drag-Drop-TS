@@ -8,6 +8,8 @@
   
   body {
     margin: 0;
+    display: flex;
+    justify-content: center;
   }
   
   label,
@@ -26,7 +28,7 @@
     font: inherit;
     padding: 0.2rem 0.4rem;
     width: 100%;
-    max-width: 30rem;
+    max-width: 36rem;
     border: 1px solid #ccc;
   }
   
@@ -38,7 +40,7 @@
   
   button {
     font: inherit;
-    background: #ff0062;
+    background: #ff629e;
     border: 1px solid #ff0062;
     cursor: pointer;
     color: white;
