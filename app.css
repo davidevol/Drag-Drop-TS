@@ -3,7 +3,7 @@
   }
   
   html {
-    font-family: sans-serif;
+    font-family: 'Andika', sans-serif;
   }
   
   body {
@@ -59,12 +59,15 @@
   
   .projects {
     margin: 1rem;
-    border: 1px solid #ff0062;
+    border: 1px solid #166406;
   }
   
   .projects header {
-    background: #ff0062;
-    height: 3.5rem;
+    background: #0acc72;
+    height: 4.5rem;
+   /*  padding-left: 2.1rem;
+    padding-right: 2.1rem; */
+    padding: 1em 5em;
     display: flex;
     justify-content: center;
     align-items: center;
