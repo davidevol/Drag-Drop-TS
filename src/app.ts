@@ -1,6 +1,6 @@
 enum ProjectStatus {
   Active,
-  Finished
+  Finished,
 }
 
 class Project {
@@ -21,7 +21,7 @@ class ProjectState {
   private static instance: ProjectState;
 
   static getInstance() {
-    return (this.instance ? this.instance : (this.instance = new ProjectState()))
+    return this.instance ? this.instance : (this.instance = new ProjectState());
   }
 
   addEventListener(listenerFn: Listener) {
@@ -123,7 +123,12 @@ class ProjectList {
     this.element.id = `${this.type}-projects`;
 
     projectState.addEventListener((projects: Project[]) => {
-      this.assignedProjects = projects;
+      const mainProjects = projects.filter((prj) => {
+        return this.type === "active" ? 
+            prj.status === ProjectStatus.Active
+          : prj.status === ProjectStatus.Finished;
+      });
+      this.assignedProjects = mainProjects;
       this.renderProjects();
     });
 
@@ -132,11 +137,13 @@ class ProjectList {
   }
 
   private renderProjects() {
-    const listElement = <HTMLUListElement>document.getElementById(`${this.type}-projects-list`)!;
-    for (const projectItem of this.assignedProjects){
-      const listItem = document.createElement('li');
+    const listElement = <HTMLUListElement>(
+      document.getElementById(`${this.type}-projects-list`)!);
+      listElement.innerHTML = "";
+    for (const projectItem of this.assignedProjects) {
+      const listItem = document.createElement("li");
       listItem.textContent = projectItem.title;
-      listElement.appendChild(listItem)
+      listElement.appendChild(listItem);
     }
   }
 
@@ -144,7 +151,7 @@ class ProjectList {
     const listId = `${this.type}-projects-list`;
     this.element.querySelector("ul")!.id = listId;
     this.element.querySelector("h2")!.textContent =
-      this.type.toUpperCase() + " PROJECTS";
+    this.type.toUpperCase() + " PROJECTS";
   }
 
   private attach() {
