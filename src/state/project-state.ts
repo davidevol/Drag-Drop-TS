@@ -1,16 +1,11 @@
-/// <reference path="../models/drag-drop.ts" />
-/// <reference path="../models/project.ts" />
-/// <reference path="../util/validation.ts" />
-/// <reference path="../decorators/autobind.ts" />
-/// <reference path="../components/component-kit.ts" />
-/// <reference path="../components/project-item.ts" />
+import { Project } from "../models/project.js";
+import { ProjectStatus } from "../models/project.js";
 
-namespace App {
 type Listener<T> = (items: T[]) => void;
 
 class State<T> {
   protected listeners: Listener<T>[] = [];
-  
+
   addEventListener(listenerFn: Listener<T>) {
     this.listeners.push(listenerFn);
   }
@@ -43,7 +38,7 @@ export class ProjectState extends State<Project> {
   }
 
   moveProject(projectId: string, newStatus: ProjectStatus) {
-    const project = this.projects.find(prj => prj.id === projectId);
+    const project = this.projects.find((prj) => prj.id === projectId);
     if (project && project.status !== newStatus) {
       project.status = newStatus;
       this.updateListeners();
@@ -58,4 +53,3 @@ export class ProjectState extends State<Project> {
 }
 
 export const projectState = ProjectState.getInstance();
-}
