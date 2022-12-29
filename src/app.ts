@@ -193,7 +193,7 @@ class ProjectItem extends ComponentKit<HTMLUListElement, HTMLLIElement> implemen
   }
 }
 
-class ProjectList extends ComponentKit<HTMLDivElement, HTMLElement>{
+class ProjectList extends ComponentKit<HTMLDivElement, HTMLElement> implements DragTarget{
   assignedProjects: Project[];
 
   
@@ -204,15 +204,34 @@ class ProjectList extends ComponentKit<HTMLDivElement, HTMLElement>{
       this.configure();
       this.renderContent();
     }
+
+    @autobind
+    dragOverHandler(_: DragEvent) {
+      const listEl = this.element.querySelector('ul')!;
+      listEl.classList.add('droppable');
+    }
+  
+    dropHandler(_: DragEvent) {}
+  
+    @autobind
+    dragLeaveHandler(_: DragEvent) {
+      const listEl = this.element.querySelector('ul')!;
+      listEl.classList.remove('droppable');
+    }
   
   configure() {
+   this.element.addEventListener('dragover', this.dragOverHandler);
+    this.element.addEventListener('dragleave', this.dragLeaveHandler);
+    this.element.addEventListener('drop', this.dropHandler);
+
     projectState.addEventListener((projects: Project[]) => {
-      const mainProjects = projects.filter((prj) => {
-        return this.type === "active" ? 
-            prj.status === ProjectStatus.Active
-          : prj.status === ProjectStatus.Finished;
+      const relevantProjects = projects.filter(prj => {
+        if (this.type === 'active') {
+          return prj.status === ProjectStatus.Active;
+        }
+        return prj.status === ProjectStatus.Finished;
       });
-      this.assignedProjects = mainProjects;
+      this.assignedProjects = relevantProjects;
       this.renderProjects();
     });
   }
@@ -277,7 +296,7 @@ class ProjectInput extends ComponentKit<HTMLDivElement, HTMLFormElement>{
       value: +entryPeople,
       required: true,
       min: 1,
-      max: 5,
+      max: 100,
     };
 
     if (
