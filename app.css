@@ -91,14 +91,24 @@ button:active {
   padding: 1rem;
 }
 
-.projects li {
-  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.26);
+.projects li  {
+  cursor: move;
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.384);
   padding: 1rem;
   margin: 1rem;
+  background-color: #f5f5f5;
+}
+
+.projects li:hover {
+  background: #e2e2e2;
 }
 
 .projects li h2 {
-  color: #ff0062;
+  color: #000000;
   margin: 0.5rem 0;
 }
 
