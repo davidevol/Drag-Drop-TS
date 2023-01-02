@@ -1,7 +1,7 @@
-import { ComponentKit } from "./component-kit.js";
-import { Validatable, validate } from "../util/validation.js";
-import { autobind } from '../decorators/autobind.js';
-import { projectState } from '../state/project-state.js';
+import { ComponentKit } from "./component-kit";
+import { Validatable, validate } from "../util/validation";
+import { autobind } from '../decorators/autobind';
+import { projectState } from '../state/project-state';
 
 export class ProjectInput extends ComponentKit<
   HTMLDivElement,
